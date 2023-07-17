@@ -1,0 +1,11 @@
+{
+    "imports": {
+        "oak/": "https://deno.land/x/oak@v10.6.0/",
+        "dotenv/": "https://deno.land/x/dotenv@v3.2.0/",
+        "mongo/": "https://deno.land/x/mongo@v0.31.0/",
+        "djwt/": "https://deno.land/x/djwt@v2.2/",
+        "std/": "https://deno.land/std@0.127.0/",
+        "@shared/": "../../packages/shared/src/"
+    }
+}
+

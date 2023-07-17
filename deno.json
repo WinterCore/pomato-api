@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "extends": "../../packages/tsconfig/base.json",
+        "lib": ["deno.window"]
+    },
+    "lint": {
+        "files": {
+            "include": "src/"
+        },
+        "rules": {
+            "tags": ["recommended"]
+        }
+    },
+    "importMap": "import_map.json"
+}
