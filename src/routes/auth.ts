@@ -50,10 +50,13 @@ AuthRouter.get("/auth/google/callback", async (ctx) => {
 AuthRouter.get<"/me", never, IFullAuthState>("/me", withAuthenticatedUser, (ctx) => {
     const user = ctx.state.user;
 
-    ctx.response.body = {
+    const resp = {
         id: user._id,
         name: user.name,
         email: user.email,
+        settings: user.settings,
         profile_picture_url: user.profile_picture_url,
     };
+
+    ctx.response.body = resp;
 });
