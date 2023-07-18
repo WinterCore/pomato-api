@@ -5,7 +5,7 @@
         "mongo/": "https://deno.land/x/mongo@v0.31.0/",
         "djwt/": "https://deno.land/x/djwt@v2.2/",
         "std/": "https://deno.land/std@0.127.0/",
-        "@shared/": "../../packages/shared/src/"
+        "@shared/": "../pomato/packages/shared/src/"
     }
 }
 

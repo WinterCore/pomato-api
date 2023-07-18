@@ -5,7 +5,7 @@
     },
     "lint": {
         "files": {
-            "include": "src/"
+            "include": ["src/"]
         },
         "rules": {
             "tags": ["recommended"]

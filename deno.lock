@@ -154,7 +154,6 @@
     "https://deno.land/x/oak@v10.6.0/structured_clone.ts": "ecf42598652b8082f37252cb873d6e257ad728e6fe73c6bd61f343d94501fbde",
     "https://deno.land/x/oak@v10.6.0/testing.ts": "5a2c53dd48e0b45994de668082d26dba4c2a0694f2ceeb1e7c68d5aca170c73f",
     "https://deno.land/x/oak@v10.6.0/tssCompare.ts": "27f45f507ef21ba7b727b6c66b491543e6e1815c17194bf0b1d7a1ea5ab8027b",
-    "https://deno.land/x/oak@v10.6.0/types.d.ts": "a952d39b03215604c12d13688ed868986591e9ea4db831e18df7021fde50d9d3",
     "https://deno.land/x/oak@v10.6.0/util.ts": "090f6fbc994a91709560184cdde0d9e72056a41e620da7cde84011e11e6393a3",
     "https://deno.land/x/path_to_regexp@v6.2.0/index.ts": "e94c04a44bbecac99ff2db2d831afe98b423e627b775cb57fc7935f848c64c51",
     "https://deno.land/x/web_bson@v0.2.4/deps.ts": "75be0a8194adece7544afd9ee65d83972eafe39f35d22e8e8d02ec3e77e74a18",

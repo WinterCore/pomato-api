@@ -13,22 +13,27 @@ export interface IFullAuthState extends IAuthState {
     readonly user: IUserSchema;
 }
 
-export const authenticated: Middleware<Writeable<IAuthState>> = async (ctx, next) => {
-    const authHeader = ctx.request.headers.get("Authorization");
-
+const getUserId = async (authHeader: string | null): Promise<string | null> => {
     if (! authHeader) {
-        ctx.response.status = 401;
-        return;
+        return null;
     }
 
     const token = authHeader.slice("Bearer ".length);
 
-    let userID: string;
-
     try {
         const { id } = await verify(token, CONFIG.JWT_SECRET, CONFIG.JWT_ALG);
-        userID = id as string;
+        return id as string;
     } catch (_: unknown) {
+        return null;
+    }
+};
+
+export const authenticated: Middleware<Writeable<IAuthState>> = async (ctx, next) => {
+    const authHeader = ctx.request.headers.get("Authorization");
+
+    const userID = await getUserId(authHeader);
+
+    if (! userID) {
         ctx.response.status = 401;
         return;
     }
@@ -39,11 +44,22 @@ export const authenticated: Middleware<Writeable<IAuthState>> = async (ctx, next
 };
 
 export const withAuthenticatedUser: Middleware<Writeable<IFullAuthState>> = async (ctx, next) => {
-    await authenticated(ctx, async () => {});
-    const { userID } = ctx.state;
+    const authHeader = ctx.request.headers.get("Authorization");
+    const userID = await getUserId(authHeader);
+
+    if (! userID) {
+        ctx.response.status = 401;
+        return;
+    }
 
     const user = await users.findOne({ _id: new Bson.ObjectId(userID) });
-    ctx.state.user = user!;
+
+    if (! user) {
+        ctx.response.status = 401;
+        return;
+    }
+
+    ctx.state.user = user;
 
     await next();
 };
