@@ -1,7 +1,16 @@
 {
     "compilerOptions": {
-        "extends": "../../packages/tsconfig/base.json",
-        "lib": ["deno.window"]
+        "lib": ["deno.window"],
+        "strict": true,
+        "strictNullChecks": true,
+        "exactOptionalPropertyTypes": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
     },
     "lint": {
         "files": {

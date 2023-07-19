@@ -4,6 +4,7 @@ import {AuthRouter} from "./routes/auth.ts";
 
 // Connect to the database
 import "./database/init.ts";
+import { SettingsRouter } from "./routes/settings.ts";
 
 const app = new Application();
 
@@ -36,5 +37,6 @@ app.use(async (ctx, next) => {
 });
 
 app.use(AuthRouter.routes());
+app.use(SettingsRouter.routes());
 
 await app.listen({ port: CONFIG.PORT });

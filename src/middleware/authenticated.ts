@@ -2,8 +2,8 @@ import {verify} from "djwt/mod.ts";
 import {Middleware} from "oak/middleware.ts";
 import {CONFIG} from "../config.ts";
 import {IUserSchema, users} from "../database/users.ts";
-import {Writeable} from "@shared/types.ts";
 import {Bson} from "mongo/mod.ts";
+import { Writeable } from "../types/common.ts";
 
 export interface IAuthState {
     readonly userID: string;

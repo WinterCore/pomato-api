@@ -1,10 +1,21 @@
 import {Router} from "oak/mod.ts";
-import {IFullAuthState, withAuthenticatedUser} from "../middleware/authenticated.ts";
+import {IAuthState, authenticated} from "../middleware/authenticated.ts";
+import {z} from "zod/mod.ts";
+import {settingsSchema} from "../types/user.ts";
+import {BodyStateFromSchema, validate} from "../middleware/validate.ts";
+import {users} from "../database/users.ts";
+import {Bson} from "mongo/mod.ts";
 
-export const SettingsRouter = new Router<IFullAuthState>();
+type IRouterState = IAuthState;
+export const SettingsRouter = new Router<IRouterState>();
+SettingsRouter.use(authenticated);
 
-SettingsRouter.use(withAuthenticatedUser);
+const updateSettingsSchema = z.strictObject({ settings: settingsSchema });
+SettingsRouter.put<"/settings", never, BodyStateFromSchema<typeof updateSettingsSchema> & IRouterState>("/settings", validate(updateSettingsSchema), async (ctx) => {
+    await users.updateOne(
+        { _id: new Bson.ObjectId(ctx.state.userID) },
+        { $set: { settings: ctx.state.body.settings } },
+    );
 
-SettingsRouter.get("/settings", (ctx) => {
-    ctx.response.body = { data: ctx.state.user.settings };
+    ctx.response.body = { message: "Success!" };
 });
