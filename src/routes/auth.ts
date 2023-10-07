@@ -1,6 +1,6 @@
 import {Router} from "oak/mod.ts";
 import {GoogleAuth} from "../lib/auth/google.ts";
-import {users, IUserSchema} from "../database/users.ts";
+import {User, IUserSchema} from "../database/users.ts";
 import * as djwt from "djwt/mod.ts";
 import {CONFIG} from "../config.ts";
 import {IFullAuthState, withAuthenticatedUser} from "../middleware/authenticated.ts";
@@ -27,13 +27,13 @@ AuthRouter.get("/auth/google/callback", async (ctx) => {
 
     const { id: _, ...data } = await googleAuthenticator.getData(code);
 
-    await users.updateOne(
+    await User.updateOne(
         { email: data.email },
         { $set: { ...data } },
         { upsert: true },
     );
 
-    const { _id } = await users.findOne({ email: data.email }) as IUserSchema;
+    const { _id } = await User.findOne({ email: data.email }) as IUserSchema;
 
     const token = await djwt.create(
         { alg: CONFIG.JWT_ALG },

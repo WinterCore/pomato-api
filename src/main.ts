@@ -5,6 +5,7 @@ import {AuthRouter} from "./routes/auth.ts";
 // Connect to the database
 import "./database/init.ts";
 import { SettingsRouter } from "./routes/settings.ts";
+import { ProjectsRouter } from "./routes/project.ts";
 
 const app = new Application();
 
@@ -30,7 +31,8 @@ app.use(async (ctx, next) => {
 
     if (ctx.request.method === "OPTIONS") {
         ctx.response.status = 200;
-        return await next();
+        await next();
+        return;
     }
 
     await next();
@@ -38,5 +40,7 @@ app.use(async (ctx, next) => {
 
 app.use(AuthRouter.routes());
 app.use(SettingsRouter.routes());
+app.use(ProjectsRouter.routes());
+
 
 await app.listen({ port: CONFIG.PORT });

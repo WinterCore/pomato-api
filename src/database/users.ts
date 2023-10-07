@@ -10,4 +10,4 @@ export interface IUserSchema extends Omit<IOAuthUserData, "id"> {
     readonly settings: ISettings;
 }
 
-export const users = DBClient.collection<IUserSchema>("users");
+export const User = DBClient.collection<IUserSchema>("users");

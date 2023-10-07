@@ -1,7 +1,7 @@
 import {verify} from "djwt/mod.ts";
 import {Middleware} from "oak/middleware.ts";
 import {CONFIG} from "../config.ts";
-import {IUserSchema, users} from "../database/users.ts";
+import {IUserSchema, User} from "../database/users.ts";
 import {Bson} from "mongo/mod.ts";
 import { Writeable } from "../types/common.ts";
 
@@ -52,7 +52,7 @@ export const withAuthenticatedUser: Middleware<Writeable<IFullAuthState>> = asyn
         return;
     }
 
-    const user = await users.findOne({ _id: new Bson.ObjectId(userID) });
+    const user = await User.findOne({ _id: new Bson.ObjectId(userID) });
 
     if (! user) {
         ctx.response.status = 401;
